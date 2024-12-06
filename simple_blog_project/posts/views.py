@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, DeleteView
 from .forms import PostForm
 from .models import Post
 
@@ -26,12 +26,11 @@ class EditPostView(LoginRequiredMixin, UpdateView):
     form_class = PostForm
     template_name = 'posts/postPage.html'
     pk_url_kwarg = 'id'
+    success_url = reverse_lazy('profile') 
+
+# Delete post using class based view.
+class DeletePostView(LoginRequiredMixin, DeleteView):
+    model = Post
+    template_name = 'posts/deletePost.html'
+    pk_url_kwarg = 'id'
     success_url = reverse_lazy('profile')
-    
-
-
-@login_required
-def delete_post(reuqest, id):
-    post = Post.objects.get(pk = id)
-    post.delete()
-    return redirect('homePage')
