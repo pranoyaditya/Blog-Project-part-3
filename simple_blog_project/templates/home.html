@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="d-flex flex-wrap px-5 pt-3 align-items-center">
+    <div class="col-6">
+        <h1>Welcome to Django Blog Project</h1>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+        </p>
+    </div>
+    <div class="col-6">
+        <img src={% static "pic.jpg" %} style="width: 80%">
+    </div>
+</div>
+
+<div class="d-flex flex-wrap p-4">
+    <div class="col-2 p-3" style="background-color: #F5F5F5">
+        <h4> All Categories </h4>
+        {% for cates in categories %}
+            <div class="form-check">
+            <input class="form-check-input" type="radio" name="category" id="cates.id">
+            <label class="form-check-label" for="cates.id">
+                <a href="{% url 'category_wise_post' cates.slug %}" class="text-decoration-none text-dark""> {{cates}}</a>
+            </label>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="col-10 p-3">
+        <h4 class="mx-3">{{data | length }} results found! </h4>
+        <div class="d-flex flex-wrap justify-content-space-around">
+            {% for posts in data %}
+        
+                <div class="col-sm-3">
+                    <div class="card m-2 bg-secondary">
+                        <div class="card-body">
+                        <h5 class="card-title mb-5">{{posts.title}}</h5>
+                        <p class="card-text"> {{posts.content}} </p>
+                        <p><strong> Author: {{posts.author}} </strong></p>
+                        <p><strong> Categories: </strong></p>
+        
+                            {% for categs in posts.category.all %}
+                            <button class="btn btn-info btn-sm disabled m-3">{{ categs }}</button>
+                            {% endfor %}
+                        
+                        </div>
+                    </div>
+                </div>
+            
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock  %}
