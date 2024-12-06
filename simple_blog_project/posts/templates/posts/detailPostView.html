@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Details{% endblock title %}
+
+{% block content %}
+<div class="col-12">
+    <div class="card m-2" style="background-color: #B9C7DC">
+        <img src="{{post.image.url}}" class="card-img-top" alt="..." style="width: 50%">
+        <div class="card-body">
+            <h1 class="card-title mb-3">{{post.title}}</h1>
+            <p class="card-text"> {{post.content}} </p>
+            <p><strong> Author: {{post.author}} </strong></p>
+            <p><strong> Categories: </strong></p>
+
+            {% for categs in post.category.all %}
+            <button class="btn btn-info btn-sm disabled m-1">{{ categs }}</button>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

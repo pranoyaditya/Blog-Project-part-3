@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from django.views.generic import CreateView, UpdateView, DeleteView
+from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from .forms import PostForm
 from .models import Post
 
@@ -34,3 +34,9 @@ class DeletePostView(LoginRequiredMixin, DeleteView):
     template_name = 'posts/deletePost.html'
     pk_url_kwarg = 'id'
     success_url = reverse_lazy('profile')
+
+# Detail post view using class based view.
+class DetailPostView(DetailView):
+    model = Post
+    template_name = 'posts/detailPostView.html'
+    pk_url_kwarg = 'id'
