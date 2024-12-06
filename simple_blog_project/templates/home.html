@@ -32,15 +32,16 @@
             {% for posts in data %}
         
                 <div class="col-sm-3">
-                    <div class="card m-2 bg-secondary">
+                    <div class="card m-2" style="background-color: #B9C7DC">
+                        <img src="{{posts.image.url}}" class="card-img-top" alt="...">
                         <div class="card-body">
-                        <h5 class="card-title mb-5">{{posts.title}}</h5>
-                        <p class="card-text"> {{posts.content}} </p>
+                        <h5 class="card-title mb-3">{{posts.title}}</h5>
+                        <p class="card-text"> {{posts.content | truncatewords:10}} </p>
                         <p><strong> Author: {{posts.author}} </strong></p>
                         <p><strong> Categories: </strong></p>
         
                             {% for categs in posts.category.all %}
-                            <button class="btn btn-info btn-sm disabled m-3">{{ categs }}</button>
+                            <button class="btn btn-info btn-sm disabled m-1">{{ categs }}</button>
                             {% endfor %}
                         
                         </div>

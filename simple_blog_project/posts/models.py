@@ -8,6 +8,7 @@ class Post(models.Model):
     content = models.TextField()
     category = models.ManyToManyField(Category) #One post can be under many categories and one category can be under many posts.
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to=('posts/media/uploads/'), blank=True, null=True)
 
     def __str__(self) -> str:
         return self.title
