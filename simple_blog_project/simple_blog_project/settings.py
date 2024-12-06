@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
 LOGIN_URL = '/author/login/'
+LOGOUT_REDIRECT_URL = 'homePage'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

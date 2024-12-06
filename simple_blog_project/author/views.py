@@ -18,24 +18,6 @@ def register(request):
             return redirect('user_login')
     return render(request, 'author/register.html', {'form' : form, 'type': 'Register'})
 
-def user_login(request):
-    if request.method == 'POST':
-        form = UserLoginForm(request, request.POST)
-        if form.is_valid():
-            userName = form.cleaned_data['username']
-            userPass = form.cleaned_data['password']
-            user = authenticate(username = userName, password = userPass)
-            if user is not None:
-                login(request,user)
-                messages.success(request, 'Logged in successfully.')
-                return redirect('profile')
-            else:
-                messages.warning(request, "Login information incorrect.")
-                return redirect('register')
-    else:
-        form = UserLoginForm()
-    return render(request, 'author/register.html', {'form' : form, 'type': 'Login'})
-
 # login class view.
 class UserLoginView(LoginView):
     template_name = 'author/register.html'
@@ -56,10 +38,6 @@ class UserLoginView(LoginView):
         context['type'] = 'Login'
         return context
     
-    
-
-
-
 def user_logout(request):
     if request.user.is_authenticated:
         logout(request)
