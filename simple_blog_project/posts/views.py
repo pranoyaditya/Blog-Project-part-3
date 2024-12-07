@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
-from .forms import PostForm
+from .forms import PostForm, CommentForm
 from .models import Post
 
 
@@ -40,3 +40,21 @@ class DetailPostView(DetailView):
     model = Post
     template_name = 'posts/detailPostView.html'
     pk_url_kwarg = 'id'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        post = self.object 
+        comments = post.comments
+        if self.request.method == 'POST':
+            comment_form = CommentForm(data=self.request.POST)
+            if comment_form.is_valid():
+                new_comment = comment_form.save(commit=False)
+                new_comment.post = post
+                new_comment.save()
+        else:
+            comment_form = CommentForm()
+        
+        context['comments'] = comments
+        context['comment_form'] = comment_form
+        
+        return context
