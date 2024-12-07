@@ -20,6 +20,16 @@
 </div>
 
 <div class="card m-2">
+    <h5 class="p-3">Total Comments: {{ comments | length }}</h5>
+      {% for comment in comments %}
+        <div class="card-body border m-2">
+            <p><b>{{comment.name}}</b> {{comment.created_on}}</p>
+            <p>{{comment.body}}</p>
+        </div>
+      {% endfor %}
+</div>
+
+<div class="card m-2">
     <div class="card-body">
       <form method='post'>
         {% csrf_token %}
